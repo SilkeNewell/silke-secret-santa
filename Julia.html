@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Julia — Secret Santa Reveal</title>
+  <style>
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;background:linear-gradient(180deg,#fff9f0,#fff);color:#222;display:flex;align-items:center;justify-content:center;height:100vh}
+    .card{background:white;padding:20px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.08);max-width:460px;text-align:center}
+    h1{margin:0 0 8px;font-size:1.3rem}
+    p{margin:0 0 12px;color:#555}
+    button{background:#c62828;color:white;border:0;padding:12px 18px;border-radius:10px;font-size:1rem;cursor:pointer}
+    .reveal{margin-top:14px;font-size:1.6rem;font-weight:800}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Julia — your Secret Santa</h1>
+    <p>👼 Angel has a gentle surprise — click REVEAL when you're ready.</p>
+    <button id="revealBtn">REVEAL 🎁</button>
+    <div id="out" class="reveal" aria-live="polite"></div>
+    <p style="margin-top:12px;color:#666;font-size:0.95rem">Hint: ≤ EUR50 · easy to carry · personal</p>
+  </div>
+
+  <script>
+    const receiver = 'Pia';
+    const charEmoji = '👼';
+    function typeReveal(text){
+      const out = document.getElementById('out'); out.textContent='';
+      let i=0; const iv = setInterval(()=>{ out.textContent += text[i++] || ''; if(i>text.length){ clearInterval(iv); burst(); } }, 120);
+    }
+    function burst(){ const em=['🎉','✨','🎄','❄️','🎁']; for(let i=0;i<18;i++){ const s=document.createElement('div'); s.textContent=em[Math.floor(Math.random()*em.length)]; s.style.position='fixed'; s.style.left=(10+Math.random()*80)+'%'; s.style.top=(Math.random()*10-10)+'vh'; s.style.fontSize=(12+Math.random()*28)+'px'; s.style.zIndex=9999; s.style.transition='transform 1800ms linear, opacity 1800ms linear'; document.body.appendChild(s); requestAnimationFrame(()=>{ s.style.transform = `translateY(${60+Math.random()*70}vh) rotate(${Math.random()*720-360}deg)`; s.style.opacity='0'; }); setTimeout(()=>s.remove(),1900);} }
+    document.getElementById('revealBtn').addEventListener('click', ()=>{ typeReveal(charEmoji + ' ' + receiver + ' 🎁'); });
+  </script>
+</body>
+</html>
